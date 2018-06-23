@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>displayObject</title>
+  <script src="https://code.createjs.com/1.0.0/createjs.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', init);
+    function init() {
+      // Stageオブジェクトを作成
+      const stage = new createjs.Stage('myCanvas');
+
+      const object = new createjs.Shape();
+      // 塗り
+      object.graphics.beginFill(createjs.Graphics.getHSL(0, 100, 50));
+      // 線の色
+      object.graphics.beginStroke("DarkRed");
+      // 線の太さ
+      object.graphics.setStrokeStyle(10);
+      object.graphics.drawCircle(0, 0, 50);
+
+      // 終了
+      object.graphics.endFill();
+      object.graphics.endStroke();
+
+      // object2
+      object.graphics
+        .beginFill('green')
+        .drawCircle(100, 100, 50)
+        .endFill();
+
+      // object3
+      object.graphics
+        .beginFill(createjs.Graphics.getHSL(0, 50, 50))
+        .drawCircle(-20, -50, 50)
+        .endFill();
+
+      // object4 (四角形)
+      object.graphics
+        .beginFill(createjs.Graphics.getHSL(0, 50, 80))
+        .drawRoundRect(300, 100, 100, 100, 10)
+        .endFill()
+
+      // object4 (多角形)
+      object.graphics
+        .beginFill(createjs.Graphics.getHSL(50, 100, 30))
+        .drawPolyStar(200, 50, 40, 5, 0, 0) // x, y, 半径, 頂点の数, 谷の深さ（0～1未満）, 向きの角度（0がデフォルトでx軸の正:時計の3時の方向、-90で時計の12時の方向になる）
+        .endFill();
+      object.graphics
+        .beginFill(createjs.Graphics.getHSL(50, 100, 30))
+        .drawPolyStar(200 + 80, 50, 40, 5, 0.6, -90)
+        .endFill();
+      object.graphics
+        .beginFill(createjs.Graphics.getHSL(50, 100, 30))
+        .drawPolyStar(280 + 80, 50, 40, 5, 0.9, -90)
+        .endFill();
+
+      // object5 任意の図形
+      object.graphics
+        .beginFill(createjs.Graphics.getHSL(100, 70, 50))
+        .beginStroke('tomato')
+        .setStrokeStyle(2)
+        .moveTo(0, 100)
+        .lineTo(100, 100)
+        .lineTo(0, 200)
+        .lineTo(10, 150)
+        .lineTo(0, 100)
+        .endFill();
+
+      stage.addChild(object);
+
+      // 座標位置
+      object.x = 50;
+      object.y = 50;
+      // 角度
+      object.rotation = 0;
+      // 透明度
+      // object.alpha = 0.3;
+      // 表示・非表示
+      object.visible = true;
+      // scale
+      // object.scaleX = 0.5; // 50%幅
+      // object.scaleY = 2; // 2倍の高さ
+      stage.update();
+    }
+  </script>
+</head>
+<body>
+  <canvas id="myCanvas" width="640" height="320"></canvas>
+</body>
+</html>
