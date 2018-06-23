@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>firstStap</title>
+  <script src="https://code.createjs.com/1.0.0/createjs.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', init);
+    function init() {
+      // Stageオブジェクトを作成
+      const stage = new createjs.Stage('myCanvas');
+      // 円を作成
+      const shape = new createjs.Shape();
+      shape.graphics.beginFill('tomato');
+      shape.graphics.drawCircle(100, 100  , 100);
+      console.log(shape);
+      stage.addChild(shape);
+      stage.update();
+    }
+  </script>
+</head>
+<body>
+  <canvas id="myCanvas" width="640" height="320"></canvas>
+</body>
+</html>
