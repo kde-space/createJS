@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>ticker</title>
+  <style>
+    canvas {
+      background-color: #eee;
+    }
+  </style>
+  <script src="https://code.createjs.com/1.0.0/createjs.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', init);
+    function init() {
+      // stageの作成
+      const stage = new createjs.Stage('myCanvas');
+
+      // 円の作成
+      const shape = new createjs.Shape();
+      shape.graphics
+        .beginFill('tomato')
+        .drawRoundRect(0, 0, 50, 50, 10);
+
+      stage.addChild(shape);
+      stage.update();
+
+      createjs.Ticker.addEventListener('tick', handleTick);
+      // stage自動更新
+      // createjs.Ticker.addEventListener('tick', stage);
+
+      // requestAnimationFrameを適用
+      createjs.Ticker.timingMode = createjs.Ticker.RAF;
+
+      let firstFlg = true;
+      function handleTick() {
+        if (firstFlg) {
+          shape.y = 50;
+        }
+        shape.x += 8;
+        shape.regX = 25;
+        shape.regY = 25;
+        shape.rotation += 10;
+        if (shape.x > 665) {
+          firstFlg = false;
+          shape.x = 0;
+          shape.y += 40;
+        }
+        if (shape.y < 200) {
+          stage.update();
+        }
+      }
+
+    }
+  </script>
+</head>
+<body>
+  <h1>tickerの使い方</h1>
+  <canvas id="myCanvas" width="640" height="320"></canvas>
+</body>
+</html>
