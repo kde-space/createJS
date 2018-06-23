@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>image | displayObject</title>
+  <script src="https://code.createjs.com/1.0.0/createjs.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', init);
+    function init() {
+      // Stageオブジェクトを作成
+      const stage = new createjs.Stage('myCanvas');
+
+      const bmp = new createjs.Bitmap('img/fujisan.jpg');
+      stage.addChild(bmp);
+      const imgWidth = 960;
+      const imgHeight = 635;
+
+      // 基準点を調整
+      // 画像の真ん中で回転するように
+      bmp.regX = imgWidth / 2;
+      bmp.regY = imgHeight / 2;
+
+      // tick イベントを監視
+      createjs.Ticker.timingMode = createjs.Ticker.RAF;
+      createjs.Ticker.on("tick", handleTick);
+
+      function handleTick() {
+        bmp.rotation += 2;
+        stage.update();
+      }
+    }
+  </script>
+</head>
+<body>
+  <h1>CreateJS で画像の表示方法</h1>
+  <canvas id="myCanvas" width="640" height="320"></canvas>
+</body>
+</html>
