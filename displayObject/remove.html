@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>remove | displayObject</title>
+  <script src="https://code.createjs.com/1.0.0/createjs.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', init);
+    function init() {
+      // ステージ作成
+      const stage = new createjs.Stage('myCanvas');
+
+      const shape1 = new createjs.Shape();
+      shape1.graphics
+        .beginFill('tomato')
+        .drawCircle(50, 50, 50);
+
+      const shape2 = new createjs.Shape();
+      shape2.graphics
+        .beginFill('forestgreen')
+        .drawCircle(150, 50, 50);
+
+      const container = new createjs.Container();
+      container.addChild(shape1, shape2);
+      stage.addChild(container);
+      stage.update();
+
+      // 子オブジェクトを削除
+      container.children.forEach(item => {
+        item.addEventListener('click', handleClick);
+      });
+
+      // クリックイベントハンドラ
+      function handleClick(e) {
+        container.removeChild(e.currentTarget);
+        stage.update();
+      }
+     }
+  </script>
+</head>
+<body>
+  <h1>CreateJS でオブジェクトの削除</h1>
+  <canvas id="myCanvas" width="640" height="320"></canvas>
+</body>
+</html>

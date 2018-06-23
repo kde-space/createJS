@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>nest | displayObject</title>
+  <script src="https://code.createjs.com/1.0.0/createjs.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', init);
+    function init() {
+      // ステージ作成
+      const stage = new createjs.Stage('myCanvas');
+
+      const shape1 = new createjs.Shape();
+      shape1.graphics
+        .beginFill('tomato')
+        .drawCircle(50, 50, 50)
+        .endFill();
+
+      const shape2 = new createjs.Shape();
+      shape2.graphics
+        .beginFill('skyblue')
+        .drawCircle(50, 150, 50)
+        .endFill();
+
+      const container = new createjs.Container();
+      container.x = 100;
+      container.y = 150;
+
+      stage.addChild(container);
+
+      for (let i = 0; i < 10; i++) {
+        const ball = new createjs.Shape();
+        ball.graphics
+          .beginFill(createjs.Graphics.getRGB(200, 100, 0))
+          .drawCircle(0, 0, 10)
+          .endFill();
+        // 円周上に配置
+        ball.x = 100 * Math.sin(i * 360 / 10 * Math.PI / 180);
+        ball.y = 100 * Math.cos(i * 360 / 10 * Math.PI / 180);
+        // グループに追加
+        container.addChild(ball);
+      }
+
+      stage.update();
+
+      createjs.Ticker.addEventListener('tick', handleTick);
+
+      function handleTick() {
+        container.x += 6;
+        container.rotation += 4;
+        if (container.x > 640) {
+          container.x = 0;
+          container.rotation -= 6;
+        }
+        stage.update();
+      }
+    }
+  </script>
+</head>
+<body>
+  <h1>CreateJS で親子構造</h1>
+  <canvas id="myCanvas" width="640" height="320"></canvas>
+</body>
+</html>
