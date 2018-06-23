@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>text | displayObject</title>
+  <script src="https://code.createjs.com/1.0.0/createjs.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', init);
+    function init() {
+      // Stageオブジェクトを作成
+      const stage = new createjs.Stage('myCanvas');
+      // textの作成
+      const txt = new createjs.Text('Hello, createJS!', 'bold 24px serif', 'darkBlue');
+      // 水平方向
+      txt.textAlign = 'left';
+      // 垂直方向
+      txt.textBaseline = 'top';
+
+      const shape = new createjs.Shape();
+      shape.graphics
+        .beginFill('tomato')
+        .drawCircle(100, 100, 50)
+        .endFill();
+
+      stage.addChild(txt, shape);
+      stage.update();
+
+      setTimeout(() => {
+        txt.text = 'changed!';
+        txt.font = `bold ${24 * 2}px sans-serif`;
+        txt.alpha = 0.5;
+        stage.update();
+      }, 1000);
+
+    }
+  </script>
+</head>
+<body>
+  <h1>CreateJS でテキストの表示方法</h1>
+  <canvas id="myCanvas" width="640" height="320"></canvas>
+</body>
+</html>
