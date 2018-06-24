@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>interaction</title>
+  <style>
+    canvas {
+      background-color: #efefef;
+    }
+  </style>
+  <script src="https://code.createjs.com/1.0.0/createjs.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', init);
+    function init() {
+      // stageの作成
+      const stage = new createjs.Stage('myCanvas');
+      const shape = new createjs.Shape();
+      shape.graphics
+        .beginFill('tomato')
+        .drawCircle(0, 0, 50);
+
+      stage.addChild(shape);
+      stage.update();
+      createjs.Ticker.timingMode = createjs.Ticker.RAF;
+      createjs.Ticker.addEventListener('tick', handleTick);
+
+      function handleTick() {
+        shape.x = stage.mouseX;
+        shape.y = stage.mouseY;
+        stage.update();
+      }
+    }
+  </script>
+</head>
+<body>
+  <h1>ユーザーインタラクションの実装</h1>
+  <canvas id="myCanvas" width="640" height="320"></canvas>
+</body>
+</html>
