@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>click | interaction</title>
+  <style>
+    canvas {
+      background-color: #efefef;
+    }
+  </style>
+  <script src="https://code.createjs.com/1.0.0/createjs.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', init);
+    function init() {
+      // stageの作成
+      const stage = new createjs.Stage('myCanvas');
+
+      // 円の作成
+      const circle = new createjs.Shape();
+      circle.graphics
+        .beginFill('tomato')
+        .drawCircle(50, 50, 50);
+      stage.addChild(circle);
+
+      // 四角形の作成
+      const rect = new createjs.Shape();
+      rect.graphics
+        .beginFill('forestgreen')
+        .drawRect(100, 100, 100, 50);
+      stage.addChild(rect);
+
+      stage.update();
+
+      circle.addEventListener('click', handleCircleClick);
+      rect.addEventListener('click', handleRectClick);
+      createjs.Ticker.timingMode = createjs.Ticker.RAF;
+
+      function handleCircleClick() {
+        createjs.Ticker.addEventListener('tick', () => {
+          circle.x += 10;
+          stage.update();
+        })
+      }
+      function handleRectClick() {
+        createjs.Ticker.addEventListener('tick', () => {
+          rect.y += 10;
+          stage.update();
+        })
+      }
+    }
+  </script>
+</head>
+<body>
+  <h1>ユーザーインタラクションの実装</h1>
+  <canvas id="myCanvas" width="640" height="320"></canvas>
+</body>
+</html>
