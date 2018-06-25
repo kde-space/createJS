@@ -70,7 +70,7 @@ Graphicsオブジェクト.lineTo(x座標, y座標);
 `moveTo()` メソッドで現在の描画位置を移動し、 `lineTo()` で現在の描画位置から次の描画位置まで現在の線のスタイルを使用して線を描画する。
 
 
-### 塗りの設定
+## 塗りの設定
 ```javascript
 shape.graphics.beginFill('tomato'); // color name
 shape.graphics.beginFill('#e00'); // 16進数
@@ -89,3 +89,25 @@ shape.graphics.beginFill(createjs.Graphics.getHSL(30, 30, 80)); // HSL②
 
 ### マウスオーバー、マウスアウト
 - マウスオーバー、マウスアウトを使う場合は、`stage.enableMouseOver()` を実行する必要がある。
+
+### ドラッグ アンド ドロップ
+```javascript
+// マウスダウンされた時の処理（一度だけ発生）
+ball.addEventLinstener('mousedown', handleDown);
+// マウスダウンされた状態でマウスを動かしたとき時の処理（連続して発生）
+ball.addEventLinstener('pressmove', handleMove);
+// マウスダウンされた状態からマウスが離れたときの処理（一度だけ発生）
+ball.addEventLinstener('pressup', handleUp);
+```
+
+### タッチデバイス対応
+`createjs.Touch` クラスを使ってタッチ操作を有効にすることで、自動的にタッチイベントがマウスイベントに変換される。
+そのため、特別な処理を実装する必要がない。
+
+```javascript
+// タッチ操作をサポートしているブラウザの場合
+if (createjs.Touch.isSupported()){
+  // タッチ操作を有効にする
+  createjs.Touch.enable(stage);
+}
+```

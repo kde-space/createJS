@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>drag and drop | interaction</title>
+  <style>
+    canvas {
+      background-color: #efefef;
+    }
+  </style>
+  <script src="https://code.createjs.com/1.0.0/createjs.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', init);
+    function init() {
+      // stageの作成
+      const stage = new createjs.Stage('myCanvas');
+      // 円の作成
+      const ball = new createjs.Shape();
+      // ボールの半径
+      const radius = 50;
+      ball.graphics
+        .beginFill('tomato')
+        .drawCircle(stage.canvas.width / 2, stage.canvas.height / 2, radius);
+      stage.addChild(ball);
+      stage.update();
+
+      ball.addEventListener('mousedown', handleDown);
+      ball.addEventListener('pressmove', handleMove);
+      ball.addEventListener('pressup', handleup);
+
+      let dragPointX;
+      let dragPointY;
+
+      // ボールを押したときの処理
+      function handleDown() {
+        dragPointX = stage.mouseX - ball.x;
+        dragPointY = stage.mouseY - ball.y;
+        ball.alpha = 0.5;
+        stage.update();
+      }
+      // ボールを押した状態で動かしたときの処理
+      function handleMove() {
+        ball.x = stage.mouseX - dragPointX;
+        ball.y = stage.mouseY - dragPointY;
+        stage.update();
+      }
+      // ボールからマウスを話したときの処理
+      function handleup() {
+        ball.alpha = 1;
+        stage.update();
+      }
+    }
+  </script>
+</head>
+<body>
+  <h1>ユーザーインタラクションの実装</h1>
+  <canvas id="myCanvas" width="640" height="320"></canvas>
+</body>
+</html>
